@@ -9,7 +9,9 @@ module.exports = function (app) {
     }));
     
     router.route('/google/callback')
-    .get(passport.authenticate('google'))
+    .get(passport.authenticate('google'), (req, res)=>{
+        res.redirect("/surveys");
+    })
     
     router.route("/api/current_user")
     .get((req, res)=> {
@@ -19,7 +21,7 @@ module.exports = function (app) {
     router.route("/api/logout")
     .get((req, res)=> {
         req.logout();
-        res.send(req.user);
+        res.redirect("/");
     })
    
     return router;
